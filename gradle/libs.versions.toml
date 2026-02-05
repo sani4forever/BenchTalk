@@ -1,5 +1,6 @@
 [versions]
 agp = "9.0.0"
+cardStackView = "2.3.4"
 converterGson = "3.0.0"
 koinAndroid = "4.1.1"
 kotlin = "2.3.0"
@@ -25,6 +26,7 @@ androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragme
 androidx-navigation-safe-args-gradle-plugin = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigationCompose" }
 androidx-navigation-testing = { module = "androidx.navigation:navigation-testing", version.ref = "navigationCompose" }
 androidx-navigation-ui = { module = "androidx.navigation:navigation-ui", version.ref = "navigationCompose" }
+card-stack-view = { module = "com.yuyakaido.android:card-stack-view", version.ref = "cardStackView" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
 insert-koin-koin-android = { module = "io.insert-koin:koin-android" }
 insert-koin-koin-core = { module = "io.insert-koin:koin-core" }

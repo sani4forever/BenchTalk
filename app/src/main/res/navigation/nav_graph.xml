@@ -16,5 +16,13 @@
     <fragment
         android:id="@+id/aboutPersonFragment"
         android:name="com.example.benchtalks.ui.fragments.AboutPersonFragment"
-        android:label="AboutPersonFragment" />
+        android:label="AboutPersonFragment" >
+        <action
+            android:id="@+id/action_aboutPersonFragment_to_swipeFragment"
+            app:destination="@id/swipeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/swipeFragment"
+        android:name="com.example.benchtalks.ui.fragments.SwipeFragment"
+        android:label="SwipeFragment" />
 </navigation>

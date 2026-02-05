@@ -67,4 +67,6 @@ dependencies {
     implementation (libs.converter.gson)
 
     implementation(libs.io.insert.koin.koin.android)
+
+    implementation(libs.card.stack.view)
 }
