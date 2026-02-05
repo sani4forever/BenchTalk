@@ -21,4 +21,24 @@
 
     <color name="dark_surface_variant">#121212</color>
     <color name="surface">#1E1E1E</color>
+
+    <!-- Цвета для карточек Tinder -->
+    <color name="card_background">#2A2A2A</color>
+    <color name="card_background_gradient_start">#2A2A2A</color>
+    <color name="card_background_gradient_end">#1E1E1E</color>
+    <color name="card_text_primary">#FFFFFF</color>
+    <color name="card_text_secondary">#D7CCC8</color>
+    <color name="card_accent">#1f6e70</color>
+
+    <!-- Цвета кнопок действий -->
+    <color name="like_color">#4CAF50</color>
+    <color name="dislike_color">#F44336</color>
+    <color name="like_green">#4CAF50</color>
+    <color name="dislike_red">#F44336</color>
+    <color name="accent_yellow">#FFC107</color>
+
+    <!-- Фон кнопок -->
+    <color name="cardview_dark_background">#2A2A2A</color>
+
+    <color name="card_overlay">#80000000</color>
 </resources>

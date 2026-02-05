@@ -68,5 +68,5 @@ dependencies {
 
     implementation(libs.io.insert.koin.koin.android)
 
-    implementation(libs.card.stack.view)
+    implementation("com.github.yuyakaido:cardstackview:2.3.3")
 }
