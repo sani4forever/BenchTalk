@@ -22,27 +22,23 @@ class CardStackAdapter : ListAdapter<PersonCard, CardStackAdapter.CardViewHolder
     }
 
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
-        val item = getItem(position) // ListAdapter сам управляет списком
+        val item = getItem(position)
 
         holder.binding.apply {
             tvName.text = "${item.name}, ${item.age}"
             tvAbout.text = item.about
 
-            // Сбрасываем прозрачность оверлеев для переиспользуемых карточек
             leftOverlay.alpha = 0f
             rightOverlay.alpha = 0f
         }
     }
 
-    // Класс для вычисления разницы между списками
     private class CardDiffCallback : DiffUtil.ItemCallback<PersonCard>() {
         override fun areItemsTheSame(oldItem: PersonCard, newItem: PersonCard): Boolean {
-            // Сравниваем по уникальному ID
             return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: PersonCard, newItem: PersonCard): Boolean {
-            // Сравниваем все содержимое (data class сделает это за нас)
             return oldItem == newItem
         }
     }

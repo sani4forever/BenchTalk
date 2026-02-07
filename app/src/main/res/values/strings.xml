@@ -5,7 +5,24 @@
     <string name="continue_btn">Продолжить</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="tell_about_yourself">Расскажите о себе...</string>
+    <string name="tell_about_yourself">Расскажите о себе…</string>
     <string name="button_to_add_avatar">Button to add avatar</string>
     <string name="save">Сохранить</string>
+
+    <string name="your_gender">Ваш пол:</string>
+    <string name="male">Мужской</string>
+    <string name="female">Женский</string>
+    <string name="other">Другое…</string>
+
+    <string name="how_old_are_you">Сколько Вам лет?</string>
+    <string name="age">Возраст</string>
+
+    <string name="enter_your_age_0_99">Пожалуйста, введите возраст от 0 до 99</string>
+    <string name="enter_your_age">Пожалуйста, введите свой возраст</string>
+    <string name="skip_btn">Пропустить</string>
+    <string name="where_are_you">Где вы находитесь?</string>
+    <string name="we_need_your_geo">Нам нужно знать ваше местоположение, чтобы найти людей поблизости от вас.</string>
+    <string name="input_later">Введу позже</string>
+    <string name="cards_out">Карточки закончились!</string>
+
 </resources>

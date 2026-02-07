@@ -55,8 +55,7 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
 
     implementation(libs.androidx.navigation.fragment)
-    implementation(libs.androidx.navigation.ui)
-
+    implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.navigation.dynamic.features.fragment)
 
     androidTestImplementation(libs.androidx.navigation.testing)
@@ -68,5 +67,6 @@ dependencies {
 
     implementation(libs.io.insert.koin.koin.android)
 
-    implementation("com.github.yuyakaido:cardstackview:2.3.3")
+    implementation(libs.cardstackview)
+    implementation(libs.play.services.location)
 }

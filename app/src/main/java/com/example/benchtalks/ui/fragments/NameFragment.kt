@@ -36,11 +36,11 @@ class NameFragment : Fragment() {
     private val onClickListener = OnClickListener {
         val name = binding.nameEditText.text.toString()
         viewModel.saveName(name)
-        navigateToLocationFragment()
+        navigateToGenderFragment()
     }
 
-    private fun navigateToLocationFragment() {
-        findNavController().navigate(NameFragmentDirections.actionNameFragmentToAboutPersonFragment())
+    private fun navigateToGenderFragment() {
+        findNavController().navigate(NameFragmentDirections.actionNameFragmentToGenderFragment())
     }
 
     override fun onDestroyView() {

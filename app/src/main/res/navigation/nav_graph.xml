@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/nameFragment">
 
@@ -10,19 +9,39 @@
         android:name="com.example.benchtalks.ui.fragments.NameFragment"
         android:label="NameFragment" >
         <action
-            android:id="@+id/action_nameFragment_to_aboutPersonFragment"
-            app:destination="@id/aboutPersonFragment" />
+            android:id="@+id/action_nameFragment_to_genderFragment"
+            app:destination="@id/genderFragment" />
     </fragment>
     <fragment
         android:id="@+id/aboutPersonFragment"
         android:name="com.example.benchtalks.ui.fragments.AboutPersonFragment"
         android:label="AboutPersonFragment" >
         <action
-            android:id="@+id/action_aboutPersonFragment_to_swipeFragment"
-            app:destination="@id/swipeFragment" />
+            android:id="@+id/action_aboutPersonFragment_to_ageFragment"
+            app:destination="@id/ageFragment" />
     </fragment>
     <fragment
         android:id="@+id/swipeFragment"
         android:name="com.example.benchtalks.ui.fragments.SwipeFragment"
-        android:label="SwipeFragment" />
+        android:label="SwipeFragment" >
+        <argument
+            android:name="userId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/genderFragment"
+        android:name="com.example.benchtalks.ui.fragments.GenderFragment"
+        android:label="GenderFragment" >
+        <action
+            android:id="@+id/action_genderFragment_to_aboutPersonFragment"
+            app:destination="@id/aboutPersonFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ageFragment"
+        android:name="com.example.benchtalks.ui.fragments.AgeFragment"
+        android:label="AgeFragment" >
+        <action
+            android:id="@+id/action_ageFragment_to_swipeFragment"
+            app:destination="@id/swipeFragment" />
+    </fragment>
 </navigation>
