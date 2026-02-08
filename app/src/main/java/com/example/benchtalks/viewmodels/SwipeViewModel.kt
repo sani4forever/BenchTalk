@@ -56,9 +56,10 @@ class SwipeViewModel(private val swipeRepository: SwipeRepository) : ViewModel()
                 val response = swipeRepository.swipeUser(userId, targetUserId, isLike)
                 if (response != null && response.isMatch) {
                     _matchEvent.value = true
+
                 }
             } finally {
-
+                _matchEvent.value = false
             }
         }
     }

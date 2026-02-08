@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/nameFragment">
+    app:startDestination="@id/startFragment">
 
     <fragment
         android:id="@+id/nameFragment"
@@ -17,8 +18,8 @@
         android:name="com.example.benchtalks.ui.fragments.AboutPersonFragment"
         android:label="AboutPersonFragment" >
         <action
-            android:id="@+id/action_aboutPersonFragment_to_ageFragment"
-            app:destination="@id/ageFragment" />
+            android:id="@+id/action_aboutPersonFragment_to_emailFragment"
+            app:destination="@id/emailFragment" />
     </fragment>
     <fragment
         android:id="@+id/swipeFragment"
@@ -42,6 +43,26 @@
         android:label="AgeFragment" >
         <action
             android:id="@+id/action_ageFragment_to_swipeFragment"
+            app:destination="@id/swipeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/emailFragment"
+        android:name="com.example.benchtalks.ui.fragments.EmailFragment"
+        android:label="EmailFragment" >
+        <action
+            android:id="@+id/action_emailFragment_to_ageFragment"
+            app:destination="@id/ageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/startFragment"
+        android:name="com.example.benchtalks.ui.fragments.StartFragment"
+        android:label="fragment_start"
+        tools:layout="@layout/fragment_start" >
+        <action
+            android:id="@+id/action_startFragment_to_nameFragment"
+            app:destination="@id/nameFragment" />
+        <action
+            android:id="@+id/action_startFragment_to_swipeFragment"
             app:destination="@id/swipeFragment" />
     </fragment>
 </navigation>

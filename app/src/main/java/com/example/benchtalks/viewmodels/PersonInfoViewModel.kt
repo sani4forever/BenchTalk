@@ -1,15 +1,15 @@
 package com.example.benchtalks.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.benchtalks.domain.datastore.UserPreferencesRepository
 import com.example.benchtalks.domain.repository.SwipeRepository
 import com.example.benchtalks.models.Gender
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class PersonInfoViewModel(private val swipeRepository: SwipeRepository) : ViewModel() {
+class PersonInfoViewModel(private val swipeRepository: SwipeRepository, private val dataStoreRepository: UserPreferencesRepository) : ViewModel() {
 
     private var _name = MutableStateFlow("")
     val name: StateFlow<String> = _name
@@ -23,6 +23,12 @@ class PersonInfoViewModel(private val swipeRepository: SwipeRepository) : ViewMo
     private var _age = MutableStateFlow<Int?>(null)
     val age: StateFlow<Int?> = _age
 
+    private var _email = MutableStateFlow<String?>(null)
+    val email: StateFlow<String?> = _email
+
+    fun saveEmail(email: String) {
+        _email.value = email
+    }
 
     fun saveName(name: String) {
         _name.value = name
@@ -47,18 +53,24 @@ class PersonInfoViewModel(private val swipeRepository: SwipeRepository) : ViewMo
                     name = name.value,
                     gender = gender.value.toString(),
                     bio = aboutText.value,
-                    birthday = null,
-                    photos = emptyList()
+                    age = age.value,
+                    photos = emptyList(),
+                    email = email.value
                 )
                 if (response != null) {
                     onSuccess(response.id)
-                    Log.e("testing", "${response.id}, ${response.bio},${response.name}, ${response.gender}")
                 } else {
                     onError("Ошибка: Сервер не ответил")
                 }
             } catch (e: Exception) {
                 onError(e.message ?: "Ошибка: Нет соединения с сервером")
             }
+        }
+    }
+
+    fun saveUserIdToPrefs(userId: Int) {
+        viewModelScope.launch {
+            dataStoreRepository.saveUserId(userId)
         }
     }
 }

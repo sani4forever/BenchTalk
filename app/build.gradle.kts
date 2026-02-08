@@ -69,4 +69,9 @@ dependencies {
 
     implementation(libs.cardstackview)
     implementation(libs.play.services.location)
+
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.datastore)
+
+
 }

@@ -25,4 +25,14 @@
     <string name="input_later">Введу позже</string>
     <string name="cards_out">Карточки закончились!</string>
 
+    <string name="api_unavailable">Нет подключения к серверу</string>
+    <string name="check_connection">Проверьте подключение</string>
+    <string name="error_icon">Иконка ошибки</string>
+    <string name="retryer">Повторить</string>
+    <string name="dislike_button">Dislike button</string>
+    <string name="refresh_button">Refresh button</string>
+    <string name="like_button">Like button</string>
+    <string name="enter_your_email">Введите вашу почту</string>
+    <string name="your_email">Ваша почта</string>
+
 </resources>

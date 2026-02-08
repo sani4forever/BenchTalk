@@ -1,6 +1,7 @@
 package com.example.benchtalks.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -101,13 +102,15 @@ class SwipeFragment : Fragment() {
         override fun onCardSwiped(direction: Direction?) {
             val swipedPosition = manager.topPosition - 1
 
-            if (swipedPosition >= 0 && swipedPosition < cardAdapter.itemCount) {
-                val targetUser = cardAdapter.currentList[swipedPosition]
+            if (swipedPosition >= 0) {
+                val cards = cardAdapter.currentList
+                if (swipedPosition < cards.size) {
+                    val targetUser = cards[swipedPosition]
+                    val isLike = direction == Direction.Right
 
-                when (direction) {
-                    Direction.Right -> viewModel.swipeUser(args.userId, targetUser.id, true)
-                    Direction.Left -> viewModel.swipeUser(args.userId, targetUser.id, false)
-                    else -> {}
+                    Log.d("SWIPE", "Swiped ${targetUser.name} - Like: $isLike")
+
+                    viewModel.swipeUser(args.userId, targetUser.id, isLike)
                 }
             }
         }

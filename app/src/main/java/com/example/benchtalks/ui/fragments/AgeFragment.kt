@@ -3,7 +3,6 @@ package com.example.benchtalks.ui.fragments
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
@@ -75,8 +74,8 @@ class AgeFragment : Fragment() {
         viewModel.registerAndGetId(
             onSuccess = { userId ->
                 val action = AgeFragmentDirections.actionAgeFragmentToSwipeFragment(userId)
+                viewModel.saveUserIdToPrefs(userId)
                 findNavController().navigate(action)
-                Log.e("testing", "$userId")
             },
             onError = { errorMessage ->
                 Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_LONG).show()

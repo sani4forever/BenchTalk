@@ -36,6 +36,6 @@ class AboutPersonFragment : Fragment() {
     private val onClickListener = OnClickListener {
         val aboutText = binding.etExpandable.text.toString()
         viewModel.saveAbout(aboutText)
-        findNavController().navigate(AboutPersonFragmentDirections.actionAboutPersonFragmentToAgeFragment())
+        findNavController().navigate(AboutPersonFragmentDirections.actionAboutPersonFragmentToEmailFragment())
     }
 }

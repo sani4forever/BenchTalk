@@ -7,8 +7,9 @@ data class UserRegistrationRequest(
     @SerializedName("name") val name: String,
     @SerializedName("gender") val gender: String,
     @SerializedName("bio") val bio: String?,
-    @SerializedName("birthday") val birthday: String?,
-    @SerializedName("photos") val photos: List<String>?
+    @SerializedName("age") val birthday: Int?,
+    @SerializedName("photos") val photos: List<String>?,
+    @SerializedName("email") val email: String?
 )
 
 data class UserResponse(

@@ -9,10 +9,11 @@ class SwipeRepository(private val api: SwipeApi) {
         name: String,
         gender: String,
         bio: String?,
-        birthday: String?,
+        age: Int?,
+        email: String?,
         photos: List<String>
     ): UserResponse? {
-        val request = UserRegistrationRequest(name, gender, bio, birthday, photos)
+        val request = UserRegistrationRequest(name, gender, bio, age, photos, email)
         val response = api.registerUser(request)
         return if (response.isSuccessful) response.body() else null
     }

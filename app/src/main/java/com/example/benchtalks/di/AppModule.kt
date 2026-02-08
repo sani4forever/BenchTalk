@@ -1,8 +1,10 @@
 package com.example.benchtalks.di
 
 import com.example.benchtalks.domain.api.SwipeApi
+import com.example.benchtalks.domain.datastore.UserPreferencesRepository
 import com.example.benchtalks.domain.repository.SwipeRepository
 import com.example.benchtalks.viewmodels.PersonInfoViewModel
+import com.example.benchtalks.viewmodels.StartViewModel
 import com.example.benchtalks.viewmodels.SwipeViewModel
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
@@ -13,8 +15,10 @@ import java.util.concurrent.TimeUnit
 const val BASE_URL = "http://10.0.2.2:8000/api/v1/"
 
 val appModule = module {
-    single { PersonInfoViewModel(get()) }
+    single { PersonInfoViewModel(get(), get()) }
     single { SwipeViewModel(get()) }
+    single { StartViewModel(get()) }
+
 
     single {
         OkHttpClient.Builder()
@@ -35,4 +39,7 @@ val appModule = module {
     single<SwipeApi> { get<Retrofit>().create(SwipeApi::class.java) }
 
     single { SwipeRepository(get()) }
+
+    single { UserPreferencesRepository(get()) }
+
 }
