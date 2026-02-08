@@ -7,6 +7,7 @@ import com.example.benchtalks.viewmodels.PersonInfoViewModel
 import com.example.benchtalks.viewmodels.StartViewModel
 import com.example.benchtalks.viewmodels.SwipeViewModel
 import okhttp3.OkHttpClient
+import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -15,9 +16,9 @@ import java.util.concurrent.TimeUnit
 const val BASE_URL = "http://10.0.2.2:8000/api/v1/"
 
 val appModule = module {
-    single { PersonInfoViewModel(get(), get()) }
-    single { SwipeViewModel(get()) }
-    single { StartViewModel(get()) }
+    viewModel { PersonInfoViewModel(get(), get()) }
+    viewModel { SwipeViewModel(get()) }
+    viewModel { StartViewModel(get()) }
 
 
     single {

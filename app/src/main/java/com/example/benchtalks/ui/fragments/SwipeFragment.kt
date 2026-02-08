@@ -21,14 +21,14 @@ import com.yuyakaido.android.cardstackview.Duration
 import com.yuyakaido.android.cardstackview.StackFrom
 import com.yuyakaido.android.cardstackview.SwipeAnimationSetting
 import kotlinx.coroutines.launch
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class SwipeFragment : Fragment() {
 
     private var _binding: FragmentSwipeBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel by viewModel<SwipeViewModel>()
+    private val viewModel by activityViewModel<SwipeViewModel>()
     private val args: SwipeFragmentArgs by navArgs()
 
     private lateinit var manager: CardStackLayoutManager
@@ -42,6 +42,14 @@ class SwipeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showLocationSheet()
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.responseEvent.collect { responseEvent ->
+                    if (responseEvent) Toast.makeText(context, "Ошибка!", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
         viewModel.getPersonsCards(args.userId)
         setupCardStack()
         setupButtons()

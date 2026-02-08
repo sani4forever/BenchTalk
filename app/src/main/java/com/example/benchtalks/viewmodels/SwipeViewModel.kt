@@ -14,6 +14,9 @@ class SwipeViewModel(private val swipeRepository: SwipeRepository) : ViewModel()
     private val _cards = MutableStateFlow<List<PersonCard>>(emptyList())
     val cards: StateFlow<List<PersonCard>> = _cards
 
+    private val _responseEvent = MutableStateFlow(false)
+    val responseEvent: StateFlow<Boolean> = _responseEvent
+
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading
 
@@ -28,39 +31,31 @@ class SwipeViewModel(private val swipeRepository: SwipeRepository) : ViewModel()
     }
 
     fun getPersonsCards(userId: Int) {
-        _isLoading.value = true
         viewModelScope.launch {
-            try {
-                val response = swipeRepository.getSwipeFeed(userId)
-                if (response != null) {
-                    _cards.value = response.map { profile ->
-                        PersonCard(
-                            id = profile.id,
-                            name = profile.name,
-                            age = profile.age,
-                            about = profile.bio,
-                        )
-                    }
+            val result = swipeRepository.getSwipeFeed(userId)
+            result.onSuccess { result ->
+                _cards.value = result.map { profile ->
+                    PersonCard(
+                        id = profile.id,
+                        name = profile.name,
+                        age = profile.age,
+                        about = profile.bio,
+                    )
                 }
+            }.onFailure {
+                _responseEvent.value = true
             }
-
-            finally {
-                _isLoading.value = false
-            }
+            _responseEvent.value = false
         }
     }
 
     fun swipeUser(userId: Int, targetUserId: Int, isLike: Boolean) {
         viewModelScope.launch {
-            try {
-                val response = swipeRepository.swipeUser(userId, targetUserId, isLike)
-                if (response != null && response.isMatch) {
-                    _matchEvent.value = true
-
-                }
-            } finally {
-                _matchEvent.value = false
+            val response = swipeRepository.swipeUser(userId, targetUserId, isLike)
+            response.onSuccess {
+                _matchEvent.value = true
             }
+            _matchEvent.value = false
         }
     }
 }

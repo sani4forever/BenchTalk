@@ -13,13 +13,13 @@ import androidx.navigation.fragment.findNavController
 import com.example.benchtalks.R
 import com.example.benchtalks.databinding.FragmentAgeBinding
 import com.example.benchtalks.viewmodels.PersonInfoViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class AgeFragment : Fragment() {
 
     private var _binding: FragmentAgeBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by viewModel<PersonInfoViewModel>()
+    private val viewModel by activityViewModel<PersonInfoViewModel>()
 
 
     override fun onCreateView(
