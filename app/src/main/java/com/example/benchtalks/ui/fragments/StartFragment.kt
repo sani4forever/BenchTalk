@@ -8,13 +8,15 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.benchtalks.databinding.FragmentStartBinding
+import com.example.benchtalks.viewmodels.PersonInfoViewModel
 import com.example.benchtalks.viewmodels.StartViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class StartFragment : Fragment() {
     private var _binding: FragmentStartBinding? = null
     private val binding get() = _binding!!
-    private val startViewModel by viewModel<StartViewModel>()
+    private val startViewModel by activityViewModel<StartViewModel>()
+    private val personInfoViewModel by activityViewModel<PersonInfoViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,7 +41,7 @@ class StartFragment : Fragment() {
     }
 
     private fun handleNavigation(userId: Int?) {
-        if (userId != null) {
+        if (userId != null && personInfoViewModel.checkUserEvent.value == true) {
             showLoading()
             val action = StartFragmentDirections.actionStartFragmentToSwipeFragment(userId)
             hideLoading()

@@ -9,13 +9,13 @@ import android.view.View.OnClickListener
 import androidx.navigation.fragment.findNavController
 import com.example.benchtalks.databinding.FragmentNameBinding
 import com.example.benchtalks.viewmodels.PersonInfoViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class NameFragment : Fragment() {
 
     private var _binding: FragmentNameBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by viewModel<PersonInfoViewModel>()
+    private val viewModel by activityViewModel<PersonInfoViewModel>()
 
 
     override fun onCreateView(

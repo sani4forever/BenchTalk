@@ -19,13 +19,13 @@ import com.example.benchtalks.viewmodels.SwipeViewModel
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class LocationFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentLocationBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by viewModel<SwipeViewModel>()
+    private val viewModel by activityViewModel<SwipeViewModel>()
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
@@ -64,7 +64,7 @@ class LocationFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        val initVM = viewModel
         checkLocationPermissions()
 
         binding.btnGetLocation.setOnClickListener {

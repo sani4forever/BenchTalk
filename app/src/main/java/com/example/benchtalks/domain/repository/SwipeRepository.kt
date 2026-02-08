@@ -12,32 +12,57 @@ class SwipeRepository(private val api: SwipeApi) {
         age: Int?,
         email: String?,
         photos: List<String>
-    ): UserResponse? {
-        val request = UserRegistrationRequest(name, gender, bio, age, photos, email)
-        val response = api.registerUser(request)
-        return if (response.isSuccessful) response.body() else null
+    ): Result<UserResponse> {
+        return runCatching {
+            val request = UserRegistrationRequest(name, gender, bio, age, photos, email)
+            val response = api.registerUser(request)
+            if (response.isSuccessful) {
+                response.body() ?: throw Exception("Пустое тело ответа")
+            } else {
+                throw Exception("Ошибка сервера: ${response.code()}")
+            }
+        }
     }
 
-    suspend fun getUserProfile(userId: Int): UserResponse? {
-        val response = api.getUserProfile(userId)
-        return if (response.isSuccessful) response.body() else null
+    suspend fun getSwipeFeed(userId: Int, limit: Int = 50): Result<List<SwipeProfileResponse>> {
+        return runCatching {
+            val response = api.getCardsForSwipe(userId, limit)
+            if (response.isSuccessful) {
+                response.body() ?: throw Exception("Пустое тело ответа")
+            } else {
+                throw Exception("Ошибка сервера: ${response.code()}")
+            }
+        }
     }
 
-    suspend fun getSwipeFeed(userId: Int, limit: Int = 50): List<SwipeProfileResponse>? {
-        val response = api.getCardsForSwipe(userId, limit)
-        return if (response.isSuccessful) response.body() else null
-    }
+    suspend fun swipeUser(userId: Int, targetUserId: Int, isLike: Boolean): Result<SwipeResponse> {
+        return runCatching {
+            val type = if (isLike) "like" else "dislike"
+            val request = SwipeRequest(toUserId = targetUserId, type = type)
 
-    suspend fun swipeUser(userId: Int, targetUserId: Int, isLike: Boolean): SwipeResponse? {
-        val type = if (isLike) "like" else "dislike"
-        val request = SwipeRequest(toUserId = targetUserId, type = type)
-
-        val response = api.swipeUser(userId, request)
-        return if (response.isSuccessful) response.body() else null
+            val response = api.swipeUser(userId, request)
+            if (response.isSuccessful) {
+                response.body() ?: throw Exception("Пустое тело ответа")
+            } else {
+                throw Exception("Ошибка сервера: ${response.code()}")
+            }
+        }
     }
 
     suspend fun getUserMatches(userId: Int): List<MatchResponse>? {
         val response = api.getUserMatches(userId)
         return if (response.isSuccessful) response.body() else null
+    }
+
+
+    suspend fun getUserProfile(userId: Int): Result<UserResponse> {
+        return runCatching {
+            val response = api.getUserProfile(userId)
+            if (response.isSuccessful) {
+                response.body() ?: throw Exception("Пустое тело ответа")
+            } else {
+                throw Exception("Ошибка сервера: ${response.code()}")
+            }
+        }
     }
 }

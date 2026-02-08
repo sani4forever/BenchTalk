@@ -8,15 +8,14 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.benchtalks.databinding.FragmentEmailBinding
 import com.example.benchtalks.viewmodels.PersonInfoViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
-
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class EmailFragment : Fragment() {
 
     private var _binding: FragmentEmailBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel by viewModel<PersonInfoViewModel>()
+    private val viewModel by activityViewModel<PersonInfoViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentEmailBinding.inflate(inflater, container, false)
