@@ -20,8 +20,8 @@ class SwipeViewModel(private val swipeRepository: SwipeRepository) : ViewModel()
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading
 
-    private val _matchEvent = MutableStateFlow(false)
-    val matchEvent: StateFlow<Boolean> = _matchEvent
+    private val _matchEvent = MutableStateFlow<Int?>(null)
+    val matchEvent: StateFlow<Int?> = _matchEvent
 
     private val _location = MutableStateFlow<UserLocation?>(null)
     val location: StateFlow<UserLocation?> = _location
@@ -53,9 +53,11 @@ class SwipeViewModel(private val swipeRepository: SwipeRepository) : ViewModel()
         viewModelScope.launch {
             val response = swipeRepository.swipeUser(userId, targetUserId, isLike)
             response.onSuccess {
-                _matchEvent.value = true
+                if (it.isMatch) {
+                    _matchEvent.value = it.matchId
+                }
+                _matchEvent.value = null
             }
-            _matchEvent.value = false
         }
     }
 }

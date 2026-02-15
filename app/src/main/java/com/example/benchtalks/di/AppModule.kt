@@ -1,8 +1,11 @@
 package com.example.benchtalks.di
 
+import com.example.benchtalks.domain.api.BenchApi
 import com.example.benchtalks.domain.api.SwipeApi
 import com.example.benchtalks.domain.datastore.UserPreferencesRepository
+import com.example.benchtalks.domain.repository.BenchRepository
 import com.example.benchtalks.domain.repository.SwipeRepository
+import com.example.benchtalks.viewmodels.BenchViewModel
 import com.example.benchtalks.viewmodels.PersonInfoViewModel
 import com.example.benchtalks.viewmodels.StartViewModel
 import com.example.benchtalks.viewmodels.SwipeViewModel
@@ -19,6 +22,7 @@ val appModule = module {
     viewModel { PersonInfoViewModel(get(), get()) }
     viewModel { SwipeViewModel(get()) }
     viewModel { StartViewModel(get()) }
+    viewModel { BenchViewModel(get()) }
 
 
     single {
@@ -42,5 +46,9 @@ val appModule = module {
     single { SwipeRepository(get()) }
 
     single { UserPreferencesRepository(get()) }
+
+    single { BenchRepository(get()) }
+
+    single<BenchApi> {get<Retrofit>().create(BenchApi::class.java)}
 
 }
