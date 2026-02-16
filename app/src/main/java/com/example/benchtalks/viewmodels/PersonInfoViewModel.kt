@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.benchtalks.domain.datastore.UserPreferencesRepository
 import com.example.benchtalks.domain.repository.SwipeRepository
 import com.example.benchtalks.models.Gender
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -29,10 +28,6 @@ class PersonInfoViewModel(private val swipeRepository: SwipeRepository, private 
 
     private var _checkUserEvent = MutableStateFlow<Boolean?>(null)
     val checkUserEvent: StateFlow<Boolean?> = _checkUserEvent
-
-    fun saveCheckUserEvent(userEvent: Boolean) {
-        _checkUserEvent.value = userEvent
-    }
 
     fun saveEmail(email: String) {
         _email.value = email
@@ -78,13 +73,8 @@ class PersonInfoViewModel(private val swipeRepository: SwipeRepository, private 
         }
     }
 
-    fun checkUser(userId: Int) : Job {
-        return viewModelScope.launch {
-            val result = swipeRepository.getUserProfile(userId)
-            result.onSuccess {
-                _checkUserEvent.value = true
-            }
-            _checkUserEvent.value = false
-        }
+    suspend fun checkUser(userId: Int): Boolean {
+        val result = swipeRepository.getUserProfile(userId)
+         return result.isSuccess
     }
 }

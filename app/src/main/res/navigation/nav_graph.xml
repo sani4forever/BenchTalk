@@ -28,6 +28,9 @@
         <argument
             android:name="userId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_swipeFragment_to_benchFragment"
+            app:destination="@id/benchFragment" />
     </fragment>
     <fragment
         android:id="@+id/genderFragment"
@@ -64,5 +67,16 @@
         <action
             android:id="@+id/action_startFragment_to_swipeFragment"
             app:destination="@id/swipeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/benchFragment"
+        android:name="com.example.benchtalks.ui.fragments.BenchFragment"
+        android:label="BenchFragment" >
+        <argument
+            android:name="matchId"
+            app:argType="integer" />
+        <argument
+            android:name="userId"
+            app:argType="integer" />
     </fragment>
 </navigation>

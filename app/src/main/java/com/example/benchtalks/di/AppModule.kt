@@ -1,8 +1,11 @@
 package com.example.benchtalks.di
 
+import com.example.benchtalks.domain.api.BenchApi
 import com.example.benchtalks.domain.api.SwipeApi
 import com.example.benchtalks.domain.datastore.UserPreferencesRepository
+import com.example.benchtalks.domain.repository.BenchRepository
 import com.example.benchtalks.domain.repository.SwipeRepository
+import com.example.benchtalks.viewmodels.BenchViewModel
 import com.example.benchtalks.viewmodels.PersonInfoViewModel
 import com.example.benchtalks.viewmodels.StartViewModel
 import com.example.benchtalks.viewmodels.SwipeViewModel
@@ -13,12 +16,13 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-const val BASE_URL = "http://10.0.2.2:8000/api/v1/"
+const val BASE_URL = "https://heavenly-armoured-nyla.ngrok-free.dev/api/v1/"
 
 val appModule = module {
     viewModel { PersonInfoViewModel(get(), get()) }
     viewModel { SwipeViewModel(get()) }
     viewModel { StartViewModel(get()) }
+    viewModel { BenchViewModel(get()) }
 
 
     single {
@@ -42,5 +46,9 @@ val appModule = module {
     single { SwipeRepository(get()) }
 
     single { UserPreferencesRepository(get()) }
+
+    single { BenchRepository(get()) }
+
+    single<BenchApi> {get<Retrofit>().create(BenchApi::class.java)}
 
 }

@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.benchtalks.databinding.FragmentSwipeBinding
 import com.example.benchtalks.ui.recyclerview.CardStackAdapter
@@ -42,6 +43,15 @@ class SwipeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showLocationSheet()
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.location.collect { loc ->
+                    if (loc != null) {
+                        viewModel.updateUserLocation(args.userId, loc.latitude, loc.longitude)
+                    }
+                }
+            }
+        }
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.responseEvent.collect { responseEvent ->
@@ -80,7 +90,11 @@ class SwipeFragment : Fragment() {
                 }
                 launch {
                     viewModel.matchEvent.collect { matchEvent ->
-                        if (matchEvent) Toast.makeText(context, "Совпадение!", Toast.LENGTH_SHORT).show()
+                        if (matchEvent != null) {
+                            Toast.makeText(context, "Совпадение!", Toast.LENGTH_SHORT).show()
+                            handleNavigation()
+                            viewModel.clearMatchEvent()
+                        }
                     }
                 }
             }
@@ -133,6 +147,11 @@ class SwipeFragment : Fragment() {
     private fun showLocationSheet() {
         val locationSheet = LocationFragment()
         locationSheet.show(childFragmentManager, "LocationBottomSheet")
+    }
+
+    private fun handleNavigation() {
+        val action = SwipeFragmentDirections.actionSwipeFragmentToBenchFragment(viewModel.matchEvent.value!!, args.userId)
+        findNavController().navigate(action)
     }
 
     override fun onDestroyView() {

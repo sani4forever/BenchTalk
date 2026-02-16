@@ -2,7 +2,6 @@ package com.example.benchtalks.domain.models
 
 import com.google.gson.annotations.SerializedName
 
-
 data class UserRegistrationRequest(
     @SerializedName("name") val name: String,
     @SerializedName("gender") val gender: String,
@@ -56,4 +55,22 @@ data class MatchUserPreview(
     @SerializedName("name") val name: String,
     @SerializedName("age") val age: Int,
     @SerializedName("primary_photo_url") val primaryPhotoUrl: String?
+)
+
+data class BenchSuggestionResponse(
+    @SerializedName("osm_id") val osmId: String,
+    @SerializedName("osm_type") val osmType: String,
+    @SerializedName("lat") val lat: Double,
+    @SerializedName("lon") val lon: Double,
+    @SerializedName("distance_user_a_km") val distanceUserAKm: Double,
+    @SerializedName("distance_user_b_km") val distanceUserBKm: Double,
+    @SerializedName("total_distance_km") val totalDistanceKm: Double,
+    @SerializedName("fairness_diff_km") val fairnessDiffKm: Double,
+    @SerializedName("score") val score: Double,
+    @SerializedName("tags") val tags: Map<String, String>? = emptyMap()
+)
+
+data class LocationUpdate(
+    val latitude: Double,
+    val longitude: Double
 )
