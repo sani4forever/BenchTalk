@@ -69,3 +69,8 @@ data class BenchSuggestionResponse(
     @SerializedName("score") val score: Double,
     @SerializedName("tags") val tags: Map<String, String>? = emptyMap()
 )
+
+data class LocationUpdate(
+    val latitude: Double,
+    val longitude: Double
+)

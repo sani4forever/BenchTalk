@@ -65,4 +65,13 @@ class SwipeRepository(private val api: SwipeApi) {
             }
         }
     }
+
+    suspend fun updateUserLocation(userId: Int, lat: Double, lon: Double): Result<Unit> {
+        return runCatching {
+            val response = api.updateUserLocation(userId, LocationUpdate(lat, lon))
+            if (!response.isSuccessful) {
+                throw Exception("Failed to update location: ${response.code()}")
+            }
+        }
+    }
 }

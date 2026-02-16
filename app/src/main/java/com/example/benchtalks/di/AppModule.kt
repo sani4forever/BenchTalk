@@ -16,7 +16,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-const val BASE_URL = "http://10.0.2.2:8000/api/v1/"
+const val BASE_URL = "https://heavenly-armoured-nyla.ngrok-free.dev/api/v1/"
 
 val appModule = module {
     viewModel { PersonInfoViewModel(get(), get()) }

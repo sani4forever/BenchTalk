@@ -17,9 +17,9 @@ class BenchViewModel(private val benchRepository: BenchRepository) : ViewModel()
     private val _responseEvent = MutableStateFlow(false)
     val responseEvent: StateFlow<Boolean> = _responseEvent
 
-    fun getBenches(matchId: Int, userId: Int) {
+    fun suggestBenches(matchId: Int, userId: Int) {
         viewModelScope.launch {
-            val result = benchRepository.getBenches(matchId, userId)
+            val result = benchRepository.suggestBenches(matchId, userId)
             result.onSuccess { result ->
                 _benches.value = result.map { bench ->
                     Bench(
@@ -37,28 +37,6 @@ class BenchViewModel(private val benchRepository: BenchRepository) : ViewModel()
             }.onFailure {
                 _responseEvent.value = true
             }
-        }
-    }
-
-    fun getBenchesWithCoordinates(
-        matchId: Int, lat1: Double, lon1: Double, lat2: Double, lon2: Double
-    ) {
-        viewModelScope.launch {
-            val result = benchRepository.getBenchesWithCoordinates(matchId, lat1, lon1, lat2, lon2)
-            result.onSuccess { result ->
-                _benches.value = result.map { bench ->
-                    Bench(
-                        bench.osmId,
-                        bench.osmType,
-                        bench.lat,
-                        bench.lon,
-                        bench.distanceUserAKm,
-                        bench.distanceUserBKm,
-                        bench.totalDistanceKm,
-                        bench.score
-                    )
-                }
-            }.onFailure { _responseEvent.value = true }
         }
     }
 }

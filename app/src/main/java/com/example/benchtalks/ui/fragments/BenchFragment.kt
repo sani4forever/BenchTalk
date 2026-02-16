@@ -47,7 +47,7 @@ class BenchFragment : Fragment() {
                 }
             }
         }
-        viewModel.getBenches(args.matchId, args.userId)
+        viewModel.suggestBenches(args.matchId, args.userId)
     }
 
     private fun setupMap() {

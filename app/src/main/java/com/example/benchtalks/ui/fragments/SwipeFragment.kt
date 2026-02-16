@@ -45,6 +45,15 @@ class SwipeFragment : Fragment() {
         showLocationSheet()
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.location.collect { loc ->
+                    if (loc != null) {
+                        viewModel.updateUserLocation(args.userId, loc.latitude, loc.longitude)
+                    }
+                }
+            }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.responseEvent.collect { responseEvent ->
                     if (responseEvent) Toast.makeText(context, "Ошибка!", Toast.LENGTH_SHORT).show()
                 }
@@ -84,6 +93,7 @@ class SwipeFragment : Fragment() {
                         if (matchEvent != null) {
                             Toast.makeText(context, "Совпадение!", Toast.LENGTH_SHORT).show()
                             handleNavigation()
+                            viewModel.clearMatchEvent()
                         }
                     }
                 }

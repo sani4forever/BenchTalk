@@ -1,6 +1,7 @@
 package com.example.benchtalks.domain.api
 
 
+import com.example.benchtalks.domain.models.LocationUpdate
 import com.example.benchtalks.domain.models.MatchResponse
 import com.example.benchtalks.domain.models.SwipeProfileResponse
 import com.example.benchtalks.domain.models.SwipeRequest
@@ -38,4 +39,10 @@ interface SwipeApi {
     suspend fun getUserMatches(
         @Path("user_id") userId: Int
     ): Response<List<MatchResponse>>
+
+    @POST("users/{user_id}/location")
+    suspend fun updateUserLocation(
+        @Path("user_id") userId: Int,
+        @Body location: LocationUpdate
+    ): Response<Unit>
 }

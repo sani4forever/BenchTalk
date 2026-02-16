@@ -1,6 +1,7 @@
 package com.example.benchtalks.viewmodels
 
 import android.location.Location
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.benchtalks.domain.repository.SwipeRepository
@@ -22,6 +23,9 @@ class SwipeViewModel(private val swipeRepository: SwipeRepository) : ViewModel()
 
     private val _matchEvent = MutableStateFlow<Int?>(null)
     val matchEvent: StateFlow<Int?> = _matchEvent
+
+    private val _locationUpdateSuccess = MutableStateFlow<Boolean?>(null)
+    val locationUpdateSuccess: StateFlow<Boolean?> = _locationUpdateSuccess
 
     private val _location = MutableStateFlow<UserLocation?>(null)
     val location: StateFlow<UserLocation?> = _location
@@ -56,8 +60,25 @@ class SwipeViewModel(private val swipeRepository: SwipeRepository) : ViewModel()
                 if (it.isMatch) {
                     _matchEvent.value = it.matchId
                 }
-                _matchEvent.value = null
             }
         }
+    }
+
+    fun updateUserLocation(userId: Int, latitude: Double, longitude: Double) {
+        viewModelScope.launch {
+            val result = swipeRepository.updateUserLocation(userId, latitude, longitude)
+            result.onSuccess {
+                Log.d("BenchViewModel", "Location updated successfully")
+                _locationUpdateSuccess.value = true
+            }.onFailure {
+                Log.e("BenchViewModel", "Failed to update location", it)
+                _locationUpdateSuccess.value = false
+                _responseEvent.value = true
+            }
+        }
+    }
+
+    fun clearMatchEvent() {
+        _matchEvent.value = null
     }
 }
